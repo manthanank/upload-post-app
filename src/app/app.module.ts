@@ -10,6 +10,12 @@ import { PostsService } from './posts/posts.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { HttpClientModule } from "@angular/common/http";
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 @NgModule({
   declarations: [
     AppComponent
@@ -22,8 +28,14 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     PostListComponent,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
     HeaderComponent,
-    MatToolbarModule
+    MatToolbarModule,
+    MatExpansionModule,
+    MatFormFieldModule,
+    MatCardModule,
+    MatInputModule,
+    MatButtonModule,
   ],
   providers: [PostsService],
   bootstrap: [AppComponent]
