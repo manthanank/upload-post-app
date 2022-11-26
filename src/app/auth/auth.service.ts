@@ -10,7 +10,7 @@ import { AuthData } from "./auth-data.model";
 export class AuthService {
 
   private isAuthenticated = false;
-  private token: string;
+  private token!: string;
   private tokenTimer: any;
   private authStatusListener = new Subject<boolean>();
 
@@ -77,7 +77,7 @@ export class AuthService {
   }
 
   logout() {
-    this.token = null;
+    this.token = "";
     this.isAuthenticated = false;
     this.authStatusListener.next(false);
     clearTimeout(this.tokenTimer);

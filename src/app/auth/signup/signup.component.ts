@@ -4,13 +4,13 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatSpinner } from '@angular/material/progress-spinner';
 import { MatInputModule } from '@angular/material/input';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-signup',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatCardModule, MatButtonModule, MatSpinner, MatInputModule],
+  imports: [CommonModule, FormsModule, MatCardModule, MatButtonModule, MatProgressSpinnerModule, MatInputModule],
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.css']
 })

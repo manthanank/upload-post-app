@@ -3,14 +3,14 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { MatCardModule } from '@angular/material/card';
-import { MatProgressSpinner, MatSpinner } from '@angular/material/progress-spinner';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatCardModule, MatButtonModule, MatProgressSpinner, MatInputModule],
+  imports: [CommonModule, FormsModule, MatCardModule, MatButtonModule, MatProgressSpinnerModule, MatInputModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })

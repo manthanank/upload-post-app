@@ -9,12 +9,12 @@ import { FormGroup, FormControl, FormsModule, ReactiveFormsModule } from '@angul
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { AuthService } from 'src/app/auth/auth.service';
 @Component({
   selector: 'app-post-list',
   standalone: true,
-  imports: [CommonModule, MatExpansionModule, MatFormFieldModule, FormsModule, ReactiveFormsModule, MatButtonModule, MatInputModule, MatProgressSpinnerModule, MatPaginator],
+  imports: [CommonModule, MatExpansionModule, MatFormFieldModule, FormsModule, ReactiveFormsModule, MatButtonModule, MatInputModule, MatProgressSpinnerModule, MatPaginatorModule],
   templateUrl: './post-list.component.html',
   styleUrls: ['./post-list.component.css']
 })
@@ -26,8 +26,8 @@ export class PostListComponent implements OnInit, OnDestroy {
   currentPage = 1;
   pageSizeOptions = [1, 2, 5, 10];
   userIsAuthenticated = false;
-  private postsSub: Subscription;
-  private authStatusSub: Subscription;
+  private postsSub!: Subscription;
+  private authStatusSub!: Subscription;
 
   constructor(
     public postsService: PostsService,

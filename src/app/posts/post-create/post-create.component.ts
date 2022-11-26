@@ -22,12 +22,12 @@ import { mimeType } from './mime-type.validator';
 export class PostCreateComponent {
   enteredTitle = "";
   enteredContent = "";
-  post: Post;
+  post!: Post;
   isLoading = false;
-  form: FormGroup;
-  imagePreview: string;
+  form!: FormGroup;
+  imagePreview!: string;
   private mode = "create";
-  private postId: string;
+  private postId!: string;
 
   constructor(
     public postsService: PostsService,
@@ -48,7 +48,7 @@ export class PostCreateComponent {
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has("postId")) {
         this.mode = "edit";
-        this.postId = paramMap.get("postId");
+        //this.postId = paramMap.get("postId");
         this.isLoading = true;
         this.postsService.getPost(this.postId).subscribe(postData => {
           this.isLoading = false;
@@ -66,20 +66,20 @@ export class PostCreateComponent {
         });
       } else {
         this.mode = "create";
-        this.postId = null;
+        this.postId = "";
       }
     });
   }
 
   onImagePicked(event: Event) {
-    const file = (event.target as HTMLInputElement).files[0];
-    this.form.patchValue({ image: file });
-    this.form.get("image").updateValueAndValidity();
-    const reader = new FileReader();
-    reader.onload = () => {
-      this.imagePreview = reader.result as string;
-    };
-    reader.readAsDataURL(file);
+    // const file = (event.target as HTMLInputElement).files[0];
+    // this.form.patchValue({ image: file });
+    // //this.form.get("image").updateValueAndValidity();
+    // const reader = new FileReader();
+    // reader.onload = () => {
+    //   this.imagePreview = reader.result as string;
+    // };
+    // reader.readAsDataURL(file);
   }
 
   onSavePost() {

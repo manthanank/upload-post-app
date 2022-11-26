@@ -17,10 +17,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { SignupComponent } from './auth/signup/signup.component';
-import { LoginComponent } from './auth/login/login.component';
 import { AuthInterceptor } from './auth/auth-interceptor';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { SignupComponent } from './auth/signup/signup.component';
+import { LoginComponent } from './auth/login/login.component';
 @NgModule({
   declarations: [
     AppComponent

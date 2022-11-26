@@ -3,17 +3,19 @@ import { CommonModule } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
+import { MatButtonModule } from '@angular/material/button';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, MatToolbarModule],
+  imports: [CommonModule, MatToolbarModule, MatButtonModule, RouterModule],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   userIsAuthenticated = false;
-  private authListenerSubs: Subscription;
+  private authListenerSubs!: Subscription;
 
   constructor(private authService: AuthService) { }
 
