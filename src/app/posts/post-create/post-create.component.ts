@@ -22,12 +22,12 @@ import { mimeType } from './mime-type.validator';
 export class PostCreateComponent {
   enteredTitle = "";
   enteredContent = "";
-  post!: Post;
+  post: Post;
   isLoading = false;
-  form !: FormGroup;
-  imagePreview!: string;
+  form: FormGroup;
+  imagePreview: string;
   private mode = "create";
-  private postId!: string;
+  private postId: string;
 
   constructor(
     public postsService: PostsService,
@@ -36,11 +36,11 @@ export class PostCreateComponent {
 
   ngOnInit() {
     this.form = new FormGroup({
-      title: new FormControl("", {
+      title: new FormControl(null, {
         validators: [Validators.required, Validators.minLength(3)]
       }),
-      content: new FormControl("", { validators: [Validators.required] }),
-      image: new FormControl("", {
+      content: new FormControl(null, { validators: [Validators.required] }),
+      image: new FormControl(null, {
         validators: [Validators.required],
         asyncValidators: [mimeType]
       })
@@ -66,7 +66,7 @@ export class PostCreateComponent {
         });
       } else {
         this.mode = "create";
-        this.postId = "";
+        this.postId = null;
       }
     });
   }
