@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-signup',
@@ -16,8 +17,17 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 })
 export class SignupComponent {
   isLoading = false;
+  private authStatusSub!: Subscription;
 
   constructor(public authService: AuthService) { }
+
+  ngOnInit() {
+    this.authStatusSub = this.authService.getAuthStatusListener().subscribe(
+      authStatus => {
+        this.isLoading = false;
+      }
+    );
+  }
 
   onSignup(form: NgForm) {
     if (form.invalid) {
@@ -25,5 +35,9 @@ export class SignupComponent {
     }
     this.isLoading = true;
     this.authService.createUser(form.value.email, form.value.password);
+  }
+
+  ngOnDestroy() {
+    this.authStatusSub.unsubscribe();
   }
 }
