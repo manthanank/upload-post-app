@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { PostsService } from '../posts.service';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -21,22 +21,22 @@ import { Subscription } from 'rxjs';
   templateUrl: './post-create.component.html',
   styleUrls: ['./post-create.component.css']
 })
-export class PostCreateComponent {
+export class PostCreateComponent implements OnInit, OnDestroy {
   enteredTitle = "";
   enteredContent = "";
-  post!: Post;
+  post: Post;
   isLoading = false;
-  form!: FormGroup;
-  imagePreview!: string;
+  form: FormGroup;
+  imagePreview: string;
   private mode = "create";
-  private postId!: string;
-  private authStatusSub!: Subscription;
+  private postId: string;
+  private authStatusSub: Subscription;
 
   constructor(
     public postsService: PostsService,
     public route: ActivatedRoute,
     private authService: AuthService
-  ) { }
+  ) {}
 
   ngOnInit() {
     this.authStatusSub = this.authService
@@ -57,7 +57,7 @@ export class PostCreateComponent {
     this.route.paramMap.subscribe((paramMap: ParamMap) => {
       if (paramMap.has("postId")) {
         this.mode = "edit";
-        //this.postId = paramMap.get("postId");
+        this.postId = paramMap.get("postId");
         this.isLoading = true;
         this.postsService.getPost(this.postId).subscribe(postData => {
           this.isLoading = false;
@@ -76,20 +76,20 @@ export class PostCreateComponent {
         });
       } else {
         this.mode = "create";
-        this.postId = "";
+        this.postId = null;
       }
     });
   }
 
   onImagePicked(event: Event) {
-    // const file = (event.target as HTMLInputElement).files[0];
-    // this.form.patchValue({ image: file });
-    // this.form.get("image").updateValueAndValidity();
-    // const reader = new FileReader();
-    // reader.onload = () => {
-    //   this.imagePreview = reader.result as string;
-    // };
-    // reader.readAsDataURL(file);
+    const file = (event.target as HTMLInputElement).files[0];
+    this.form.patchValue({ image: file });
+    this.form.get("image").updateValueAndValidity();
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreview = reader.result as string;
+    };
+    reader.readAsDataURL(file);
   }
 
   onSavePost() {

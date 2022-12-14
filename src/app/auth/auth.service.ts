@@ -11,12 +11,12 @@ const BACKEND_URL = environment.apiUrl + "/user/";
 })
 export class AuthService {
   private isAuthenticated = false;
-  private token!: string;
+  private token: string;
   private tokenTimer: any;
-  private userId!: string;
+  private userId: string;
   private authStatusListener = new Subject<boolean>();
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router) {}
 
   getToken() {
     return this.token;
@@ -88,17 +88,17 @@ export class AuthService {
     if (expiresIn > 0) {
       this.token = authInformation.token;
       this.isAuthenticated = true;
-      //this.userId = authInformation.userId;
+      this.userId = authInformation.userId;
       this.setAuthTimer(expiresIn / 1000);
       this.authStatusListener.next(true);
     }
   }
 
   logout() {
-    this.token = "";
+    this.token = null;
     this.isAuthenticated = false;
     this.authStatusListener.next(false);
-    this.userId = "";
+    this.userId = null;
     clearTimeout(this.tokenTimer);
     this.clearAuthData();
     this.router.navigate(["/"]);

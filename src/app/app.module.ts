@@ -14,6 +14,7 @@ import { AuthInterceptor } from './auth/auth-interceptor';
 import { AngularMaterialModule } from './angular-material.module';
 import { ErrorComponent } from './error/error.component';
 import { ErrorInterceptor } from './error.interceptor';
+import { AuthGuard } from './auth/auth.guard';
 @NgModule({
   declarations: [
     AppComponent
@@ -33,7 +34,8 @@ import { ErrorInterceptor } from './error.interceptor';
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    AuthGuard
   ],
   bootstrap: [AppComponent],
   entryComponents: [ErrorComponent]

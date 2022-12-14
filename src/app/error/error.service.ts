@@ -14,6 +14,6 @@ export class ErrorService {
   }
 
   handleError() {
-    this.errorListener.next("");
+    this.errorListener.next(null);
   }
 }

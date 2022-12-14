@@ -17,9 +17,9 @@ import { Subscription } from 'rxjs';
 })
 export class SignupComponent {
   isLoading = false;
-  private authStatusSub!: Subscription;
+  private authStatusSub: Subscription;
 
-  constructor(public authService: AuthService) { }
+  constructor(public authService: AuthService) {}
 
   ngOnInit() {
     this.authStatusSub = this.authService.getAuthStatusListener().subscribe(
