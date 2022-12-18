@@ -7,6 +7,7 @@ import { AuthService } from './auth/auth.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+  title = 'Uploap Post MEAN App'
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
