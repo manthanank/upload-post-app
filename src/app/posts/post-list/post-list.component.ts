@@ -11,10 +11,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { AuthService } from 'src/app/auth/auth.service';
+import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-post-list',
   standalone: true,
-  imports: [CommonModule, MatExpansionModule, MatFormFieldModule, FormsModule, ReactiveFormsModule, MatButtonModule, MatInputModule, MatProgressSpinnerModule, MatPaginatorModule],
+  imports: [CommonModule, MatExpansionModule,RouterModule, MatFormFieldModule, FormsModule, ReactiveFormsModule, MatButtonModule, MatInputModule, MatProgressSpinnerModule, MatPaginatorModule],
   templateUrl: './post-list.component.html',
   styleUrls: ['./post-list.component.css']
 })
