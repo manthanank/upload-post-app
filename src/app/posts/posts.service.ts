@@ -1,15 +1,15 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
 import { Subject } from "rxjs";
-import { map } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
+import { map } from "rxjs/operators";
+import { Router } from "@angular/router";
+
+import { environment } from "../../environments/environment";
 import { Post } from "./post.model";
 
 const BACKEND_URL = environment.apiUrl + "/posts/";
-@Injectable({
-  providedIn: 'root'
-})
+
+@Injectable({ providedIn: "root" })
 export class PostsService {
   private posts: Post[] = [];
   private postsUpdated = new Subject<{ posts: Post[]; postCount: number }>();
