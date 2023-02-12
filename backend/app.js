@@ -14,8 +14,7 @@ mongoose
   .connect(
     "mongodb+srv://manthanank:" +
       process.env.MONGO_ATLAS_PW +
-      "@cluster0.re3ha3x.mongodb.net/mean-app"
-    // "mongodb+srv://max:QuBqs0T45GDKPlIG@cluster0-ntrwp.mongodb.net/node-angular?retryWrites=true"
+      "@cluster0.re3ha3x.mongodb.net/upload-post-app"
   )
   .then(() => {
     console.log("Connected to database!");
