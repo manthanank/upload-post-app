@@ -1,3 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 
-body { margin: 0; }
+mat-card { padding: 30px; }
+app-header a { color: white !important }
+app-header a.mat-accent { color: #ff4081 !important }
+.mat-mdc-text-field-wrapper { background-color: transparent !important }

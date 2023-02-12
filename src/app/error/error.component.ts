@@ -1,16 +1,31 @@
-import { Component, Inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Subject } from 'rxjs';
-import { AngularMaterialModule } from '../angular-material.module';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, Inject } from "@angular/core";
+import { MAT_DIALOG_DATA } from "@angular/material/dialog";
+// import { Subscription } from "rxjs";
+
+// import { ErrorService } from "./error.service";
 
 @Component({
-  selector: 'app-error',
-  standalone: true,
-  imports: [CommonModule, AngularMaterialModule],
-  templateUrl: './error.component.html',
-  styleUrls: ['./error.component.css']
+  templateUrl: "./error.component.html",
+  selector: "app-error",
+  // styleUrls: ["./error.component.css"]
 })
 export class ErrorComponent {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: { message: string }) { }
+  // data: { message: string };
+  // private errorSub: Subscription;
+  constructor(@Inject(MAT_DIALOG_DATA) public data: { message: string }) {}
+  // constructor(private errorService: ErrorService) {}
+
+  // ngOnInit() {
+  //   this.errorSub = this.errorService.getErrorListener().subscribe(message => {
+  //     this.data = { message: message };
+  //   });
+  // }
+
+  // onHandleError() {
+  //   this.errorService.handleError();
+  // }
+
+  // ngOnDestroy() {
+  //   this.errorSub.unsubscribe();
+  // }
 }

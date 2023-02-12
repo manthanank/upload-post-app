@@ -1,23 +1,15 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Subscription } from 'rxjs';
-import { PostsService } from '../posts.service';
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { PageEvent } from "@angular/material/paginator";
+import { Subscription } from "rxjs";
+
 import { Post } from "../post.model";
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { FormGroup, FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { AuthService } from 'src/app/auth/auth.service';
-import { RouterModule } from '@angular/router';
+import { PostsService } from "../posts.service";
+import { AuthService } from "../../auth/auth.service";
+
 @Component({
-  selector: 'app-post-list',
-  standalone: true,
-  imports: [CommonModule, MatExpansionModule, RouterModule, MatFormFieldModule, FormsModule, ReactiveFormsModule, MatButtonModule, MatInputModule, MatProgressSpinnerModule, MatPaginatorModule],
-  templateUrl: './post-list.component.html',
-  styleUrls: ['./post-list.component.css']
+  selector: "app-post-list",
+  templateUrl: "./post-list.component.html",
+  styleUrls: ["./post-list.component.css"]
 })
 export class PostListComponent implements OnInit, OnDestroy {
   // posts = [
@@ -82,4 +74,3 @@ export class PostListComponent implements OnInit, OnDestroy {
     this.authStatusSub.unsubscribe();
   }
 }
-

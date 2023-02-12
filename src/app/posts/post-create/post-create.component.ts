@@ -1,25 +1,17 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { PostsService } from '../posts.service';
-import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatExpansionModule } from '@angular/material/expansion';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Post } from '../post.model';
-import { mimeType } from './mime-type.validator';
-import { AuthService } from 'src/app/auth/auth.service';
-import { Subscription } from 'rxjs';
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { FormGroup, FormControl, Validators } from "@angular/forms";
+import { ActivatedRoute, ParamMap } from "@angular/router";
+import { Subscription } from "rxjs";
+
+import { PostsService } from "../posts.service";
+import { Post } from "../post.model";
+import { mimeType } from "./mime-type.validator";
+import { AuthService } from "../../auth/auth.service";
+
 @Component({
-  selector: 'app-post-create',
-  standalone: true,
-  imports: [CommonModule, MatFormFieldModule, MatCardModule, FormsModule, ReactiveFormsModule, MatExpansionModule, MatProgressSpinnerModule, MatButtonModule, MatInputModule, MatToolbarModule],
-  templateUrl: './post-create.component.html',
-  styleUrls: ['./post-create.component.css']
+  selector: "app-post-create",
+  templateUrl: "./post-create.component.html",
+  styleUrls: ["./post-create.component.css"]
 })
 export class PostCreateComponent implements OnInit, OnDestroy {
   enteredTitle = "";
