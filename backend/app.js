@@ -1,27 +1,27 @@
-const express = require("express");
 const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
-require("dotenv").config();
-
 const userRoutes = require("./routes/user");
-
+const express = require("express");
 const app = express();
-
+const mongoose = require("mongoose");
 const path = require("path");
 const postsRoutes = require("./routes/posts");
 
+require("dotenv").config();
+
+const dbUser = process.env.MONGODB_USER;
+const dbPassword = process.env.MONGODB_PASSWORD;
+
 mongoose
   .connect(
-    "mongodb+srv://manthanank:" +
-      process.env.MONGO_ATLAS_PW +
-      "@cluster0.re3ha3x.mongodb.net/upload-post-app"
+    `mongodb+srv://${dbUser}:${dbPassword}@cluster0.re3ha3x.mongodb.net/full-stack-portfolio`
   )
   .then(() => {
-    console.log("Connected to database!");
+    console.log("Connected to MongoDB database!");
   })
   .catch(() => {
     console.log("Connection failed!");
   });
+
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

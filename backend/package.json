@@ -8,19 +8,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/manthanank/upload-post-app-backend.git"
+    "url": "git+https://github.com/manthanank/upload-post-app.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/manthanank/upload-post-app-backend/issues"
+    "url": "https://github.com/manthanank/upload-post-app/issues"
   },
-  "homepage": "https://github.com/manthanank/upload-post-app-backend#readme",
+  "homepage": "",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.1",
-    "cloudinary": "^1.35.0",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "jsonwebtoken": "^8.5.1",
