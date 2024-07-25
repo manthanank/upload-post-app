@@ -76,7 +76,7 @@ export class PostsService {
       });
   }
 
-  updatePost(id: string, title: string, content: string, image: string) {
+  updatePost(id: string, title: string, content: string, image: File | string) {
     let postData: Post | FormData;
     if (typeof image === "object") {
       postData = new FormData();
