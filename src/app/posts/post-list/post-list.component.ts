@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from "@angular/core";
-import { PageEvent } from "@angular/material/paginator";
+import { PageEvent } from "@angular/material";
 import { Subscription } from "rxjs";
 
 import { Post } from "../post.model";

@@ -1,9 +1,8 @@
 const app = require("./app");
 const debug = require("debug")("node-angular");
 const http = require("http");
-const path = require("path");
 
-const normalizePort = (val) => {
+const normalizePort = val => {
   var port = parseInt(val, 10);
 
   if (isNaN(port)) {
@@ -19,7 +18,7 @@ const normalizePort = (val) => {
   return false;
 };
 
-const onError = (error) => {
+const onError = error => {
   if (error.syscall !== "listen") {
     throw error;
   }
@@ -47,11 +46,7 @@ const onListening = () => {
 const port = normalizePort(process.env.PORT || "3000");
 app.set("port", port);
 
-app.get("/", function (req, res) {
-  res.sendFile(path.join(__dirname, "public/index.html"));
-});
-
 const server = http.createServer(app);
 server.on("error", onError);
 server.on("listening", onListening);
-server.listen(port, console.log(`Server working on ${port}`));
+server.listen(port);

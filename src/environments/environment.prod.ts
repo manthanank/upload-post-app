@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: "https://upload-post-app.onrender.com/api"
+  apiUrl: "http://nodeangular-env.kjipxmqrju.us-east-2.elasticbeanstalk.com/api"
 };
