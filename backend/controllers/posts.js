@@ -1,38 +1,57 @@
 const Post = require("../models/post");
 require("dotenv").config();
+const cloudinary = require('cloudinary').v2;
 
-exports.createPost = (req, res, next) => {
-  const url = req.protocol + "://" + req.get("host");
-  const post = new Post({
-    title: req.body.title,
-    content: req.body.content,
-    imagePath: url + "/images/" + req.file.filename,
-    creator: req.userData.userId,
-  });
-  post
-    .save()
-    .then((createdPost) => {
-      res.status(201).json({
-        message: "Post added successfully",
-        post: {
-          ...createdPost,
-          id: createdPost._id,
-        },
-      });
-    })
-    .catch((error) => {
-      res.status(500).json({
-        message: "Creating a post failed!",
-      });
+// Configure Cloudinary with your credentials
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET
+});
+
+exports.createPost = async (req, res, next) => {
+  try {
+    const result = await cloudinary.uploader.upload(req.file.path, {
+      folder: 'posts' // Optional: specify a folder in Cloudinary
     });
+
+    const post = new Post({
+      title: req.body.title,
+      content: req.body.content,
+      imagePath: result.secure_url, // Use the Cloudinary URL
+      creator: req.userData.userId,
+    });
+
+    const createdPost = await post.save();
+    res.status(201).json({
+      message: "Post added successfully",
+      post: {
+        ...createdPost,
+        id: createdPost._id,
+      },
+    });
+  } catch (error) {
+    res.status(500).json({
+      message: "Creating a post failed!",
+    });
+  }
 };
 
-exports.updatePost = (req, res, next) => {
+exports.updatePost = async (req, res, next) => {
   let imagePath = req.body.imagePath;
   if (req.file) {
-    const url = req.protocol + "://" + req.get("host");
-    imagePath = url + "/images/" + req.file.filename;
+    try {
+      const result = await cloudinary.uploader.upload(req.file.path, {
+        folder: 'your_folder_name' // Optional: specify a folder in Cloudinary
+      });
+      imagePath = result.secure_url; // Use the Cloudinary URL
+    } catch (error) {
+      return res.status(500).json({
+        message: "Updating image failed!",
+      });
+    }
   }
+
   const post = new Post({
     _id: req.body.id,
     title: req.body.title,
@@ -40,6 +59,7 @@ exports.updatePost = (req, res, next) => {
     imagePath: imagePath,
     creator: req.userData.userId,
   });
+
   Post.updateOne({ _id: req.params.id, creator: req.userData.userId }, post)
     .then((result) => {
       if (result.matchedCount > 0) {
@@ -50,7 +70,7 @@ exports.updatePost = (req, res, next) => {
     })
     .catch((error) => {
       res.status(500).json({
-        message: "Couldn't udpate post!",
+        message: "Couldn't update post!",
       });
     });
 };
@@ -102,7 +122,7 @@ exports.deletePost = (req, res, next) => {
   Post.deleteOne({ _id: req.params.id, creator: req.userData.userId })
     .then((result) => {
       console.log(result);
-      if (result.matchedCount> 0) {
+      if (result.matchedCount > 0) {
         res.status(200).json({ message: "Deletion successful!" });
       } else {
         res.status(401).json({ message: "Not authorized!" });

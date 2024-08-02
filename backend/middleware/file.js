@@ -1,4 +1,6 @@
 const multer = require("multer");
+const fs = require("fs");
+const path = require("path");
 
 const MIME_TYPE_MAP = {
   "image/png": "png",
@@ -13,7 +15,13 @@ const storage = multer.diskStorage({
     if (isValid) {
       error = null;
     }
-    cb(error, "images");
+
+    const uploadPath = path.join(__dirname, "/../uploads/images");
+    if (!fs.existsSync(uploadPath)) {
+      fs.mkdirSync(uploadPath, { recursive: true });
+    }
+
+    cb(error, uploadPath);
   },
   filename: (req, file, cb) => {
     const name = file.originalname.toLowerCase().split(" ").join("-");

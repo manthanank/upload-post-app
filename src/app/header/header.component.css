@@ -1,18 +1,29 @@
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-a {
-  text-decoration: none;
-  color: white;
-}
-
-ul {
+mat-toolbar {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .spacer {
-  flex: 1 1 auto;
+  flex: 1;
+}
+
+ul {
+  list-style: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  margin-left: 1rem;
+}
+
+a, button {
+  color: white;
+  text-decoration: none;
+}
+
+a:hover, button:hover {
+  text-decoration: underline;
 }

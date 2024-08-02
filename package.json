@@ -1,5 +1,5 @@
 {
-  "name": "upload-post-app-frontend",
+  "name": "upload-post-app",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
