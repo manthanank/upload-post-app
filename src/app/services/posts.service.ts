@@ -17,33 +17,6 @@ export class PostsService {
 
   getPosts(postsPerPage: number, currentPage: number) {
     const queryParams = `?pagesize=${postsPerPage}&page=${currentPage}`;
-    // this.http
-    //   .get<{ message: string; posts: any; maxPosts: number }>(
-    //     BACKEND_URL + queryParams
-    //   )
-    //   .pipe(
-    //     map((postData) => {
-    //       return {
-    //         posts: postData.posts.map((post) => {
-    //           return {
-    //             title: post.title,
-    //             content: post.content,
-    //             id: post._id,
-    //             imagePath: post.imagePath,
-    //             creator: post.creator,
-    //           };
-    //         }),
-    //         maxPosts: postData.maxPosts,
-    //       };
-    //     })
-    //   )
-    //   .subscribe((transformedPostData) => {
-    //     this.posts = transformedPostData.posts;
-    //     this.postsUpdated.next({
-    //       posts: [...this.posts],
-    //       postCount: transformedPostData.maxPosts,
-    //     });
-    //   });
     return this.http
       .get<{ message: string; posts: any; maxPosts: number }>(
         this.apiUrl + queryParams
