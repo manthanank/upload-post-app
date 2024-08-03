@@ -40,6 +40,10 @@ app.use((req, res, next) => {
   next();
 });
 
+app.get("/", (req, res) => {
+  res.send("API is running...");
+});
+
 app.use("/api/posts", postsRoutes);
 app.use("/api/user", userRoutes);
 
