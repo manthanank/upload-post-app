@@ -1,57 +1,49 @@
-const app = require("./app");
-const debug = require("debug")("node-angular");
-const http = require("http");
+const express = require("express");
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
 const path = require("path");
+const dotenv = require("dotenv");
+const userRoutes = require("./routes/user");
+const postsRoutes = require("./routes/posts");
 
-const normalizePort = (val) => {
-  const port = parseInt(val, 10);
+dotenv.config();
 
-  if (isNaN(port)) {
-    return val;
-  }
+const dbUser = process.env.MONGODB_USER;
+const dbPassword = process.env.MONGODB_PASSWORD;
+const dbUrl = process.env.MONGODB_URL;
 
-  if (port >= 0) {
-    return port;
-  }
+mongoose
+  .connect(`mongodb+srv://${dbUser}:${dbPassword}@${dbUrl}`)
+  .then(() => {
+    console.log("Connected to MongoDB database!");
+  })
+  .catch(() => {
+    console.log("Connection failed!");
+  });
 
-  return false;
-};
+const app = express();
 
-const onError = (error) => {
-  if (error.syscall !== "listen") {
-    throw error;
-  }
-  const bind = typeof addr === "string" ? "pipe " + addr : "port " + port;
-  switch (error.code) {
-    case "EACCES":
-      console.error(bind + " requires elevated privileges");
-      process.exit(1);
-      break;
-    case "EADDRINUSE":
-      console.error(bind + " is already in use");
-      process.exit(1);
-      break;
-    default:
-      throw error;
-  }
-};
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use("/images", express.static(path.join("images")));
 
-const onListening = () => {
-  const addr = server.address();
-  const bind = typeof addr === "string" ? "pipe " + addr : "port " + port;
-  debug("Listening on " + bind);
-};
-
-const port = normalizePort(process.env.PORT || "3000");
-app.set("port", port);
-
-app.get("/", (req, res) => {
-  res.send("API running");
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PATCH, PUT, DELETE, OPTIONS"
+  );
+  next();
 });
 
-const server = http.createServer(app);
-server.on("error", onError);
-server.on("listening", onListening);
-server.listen(port, () => {
-  console.log(`Server working on ${port}`);
+app.use("/api/posts", postsRoutes);
+app.use("/api/user", userRoutes);
+
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });

@@ -1,17 +1,27 @@
 <mat-card>
-  <mat-spinner *ngIf="isLoading"></mat-spinner>
-  <h1>Signup</h1>
-  <form (submit)="onSignup(signupForm)" #signupForm="ngForm" *ngIf="!isLoading">
-    <mat-form-field>
-      <mat-label>E-Mail</mat-label>
-      <input matInput name="email" ngModel type="email" placeholder="E-Mail" #emailInput="ngModel" required email>
-      <mat-error *ngIf="emailInput.invalid">Please enter a valid email.</mat-error>
-    </mat-form-field>
-    <mat-form-field>
-      <mat-label>Password</mat-label>
-      <input type="password" name="password" ngModel matInput placeholder="Password" #passwordInput="ngModel" required>
-      <mat-error *ngIf="passwordInput.invalid">Please enter a valid password.</mat-error>
-    </mat-form-field>
-    <button mat-raised-button color="accent" type="submit" *ngIf="!isLoading">Signup</button>
-  </form>
+    <h1>Signup</h1>
+    @if (isLoading) {
+    <mat-spinner></mat-spinner>
+    }
+    @else {
+    <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+        <mat-form-field>
+            <mat-label>E-Mail</mat-label>
+            <input matInput name="email" type="email" placeholder="E-Mail" formControlName="email" required email>
+            @if (email?.invalid && email?.touched) {
+            <mat-error>Please enter a valid email.</mat-error>
+            }
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Password</mat-label>
+            <input type="password" name="password" matInput placeholder="Password" formControlName="password" required>
+            @if (password?.invalid && password?.touched) {
+            <mat-error>Please enter a valid password.</mat-error>
+            }
+        </mat-form-field>
+        @if (!isLoading) {
+        <button mat-raised-button color="accent" type="submit">Signup</button>
+        }
+    </form>
+    }
 </mat-card>

@@ -1,18 +1,18 @@
 const Post = require("../models/post");
 require("dotenv").config();
-const cloudinary = require('cloudinary').v2;
+const cloudinary = require("cloudinary").v2;
 
 // Configure Cloudinary with your credentials
 cloudinary.config({
   cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
   api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
 exports.createPost = async (req, res, next) => {
   try {
     const result = await cloudinary.uploader.upload(req.file.path, {
-      folder: 'posts' // Optional: specify a folder in Cloudinary
+      folder: "posts", // Optional: specify a folder in Cloudinary
     });
 
     const post = new Post({
@@ -42,7 +42,7 @@ exports.updatePost = async (req, res, next) => {
   if (req.file) {
     try {
       const result = await cloudinary.uploader.upload(req.file.path, {
-        folder: 'your_folder_name' // Optional: specify a folder in Cloudinary
+        folder: "posts", // Optional: specify a folder in Cloudinary
       });
       imagePath = result.secure_url; // Use the Cloudinary URL
     } catch (error) {
@@ -75,31 +75,27 @@ exports.updatePost = async (req, res, next) => {
     });
 };
 
-exports.getPosts = (req, res, next) => {
+exports.getPosts = async (req, res, next) => {
   const pageSize = +req.query.pagesize;
   const currentPage = +req.query.page;
-  const postQuery = Post.find();
-  let fetchedPosts;
-  if (pageSize && currentPage) {
-    postQuery.skip(pageSize * (currentPage - 1)).limit(pageSize);
-  }
-  postQuery
-    .then((documents) => {
-      fetchedPosts = documents;
-      return Post.count();
-    })
-    .then((count) => {
-      res.status(200).json({
-        message: "Posts fetched successfully!",
-        posts: fetchedPosts,
-        maxPosts: count,
-      });
-    })
-    .catch((error) => {
-      res.status(500).json({
-        message: "Fetching posts failed!",
-      });
+  try {
+    const postQuery = Post.find();
+    let fetchedPosts;
+    if (pageSize && currentPage) {
+      postQuery.skip(pageSize * (currentPage - 1)).limit(pageSize);
+    }
+    fetchedPosts = await postQuery.exec();
+    const count = await Post.countDocuments();
+    res.status(200).json({
+      message: "Posts fetched successfully!",
+      posts: fetchedPosts,
+      maxPosts: count,
     });
+  } catch (error) {
+    res.status(500).json({
+      message: "Fetching posts failed!",
+    });
+  }
 };
 
 exports.getPost = (req, res, next) => {

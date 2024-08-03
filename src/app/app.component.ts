@@ -1,31 +1,22 @@
-import { Component, OnInit, } from "@angular/core";
-// import { Subscription } from "rxjs";
-
-import { AuthService } from "./auth/auth.service";
-// import { ErrorService } from "./error/error.service";
+import { Component, inject, OnInit } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { HeaderComponent } from "./shared/header/header.component";
+import { AuthService } from './services/auth.service';
 
 @Component({
-  selector: "app-root",
-  templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.css"]
+  selector: 'app-root',
+  standalone: true,
+  imports: [RouterOutlet, HeaderComponent],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
-  // hasError = false;
-  // private errorSub: Subscription;
 
-  constructor(
-    private authService: AuthService,
-    // private errorService: ErrorService
-  ) {}
-
+  authService = inject(AuthService);
+  
+  constructor() {}
+  
   ngOnInit() {
     this.authService.autoAuthUser();
-    // this.errorSub = this.errorService.getErrorListener().subscribe(
-    //   message => this.hasError = message !== null
-    // );
   }
-
-  // ngOnDestroy() {
-  //   this.errorSub.unsubscribe();
-  // }
 }
